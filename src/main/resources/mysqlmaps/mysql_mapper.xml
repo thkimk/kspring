@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kkk.sbgtest.dao.mysql">
+
+    <!-- TestDao mapping : namespace + id -->
+    <select id="selectlist" resultType="HashMap">
+        SELECT b2b_seq,b2b_nm FROM b2b_bas;
+    </select>
+</mapper>

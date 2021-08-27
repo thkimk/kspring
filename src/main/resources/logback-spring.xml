@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration
+        xmlns="http://ch.qos.logback/xml/ns/logback"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback http://ch.qos.logback/xml/ns/logback/logback.xsd" >
+
+    <property name="LOG_HOME" value="/jb_log2/b2b" />
+
+    <!-- Appenders : 로그를 어디에 어떻게 로그를 찍을 것인지에 대한 설정 (콘솔, 파일 기록, DB 저장 등) 결정
+                   - console 어펜더 : 콘솔에 로그를 출력 (ConsoleAppender)
+                   - file 어펜더 : 파일에 로그를 출력 (RollingFileAppender)
+                   - 그외 어펜더 : DailyRollingFileAppender, SMTPAppender, 등등
+                   가장 많이 쓰이는 건, ConsoleAppender와 RollingFileAppender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder : appender에 포함되어 출력할 로그의 패턴 정의 -->
+        <encoder>
+            <!--아래 패턴 정의는 맨밑 가이드 참고-->
+            <Pattern>%d %5p [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %5p %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- file : appender에 포함되어 출력할 로그파일의 패턴 정의 -->
+        <file>${LOG_HOME}/server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/server.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <!-- encoder : appender에 포함되어 출력할 로그의 패턴 정의 -->
+        <encoder>
+            <pattern>%d %-5level [%thread] [%marker] [%X{traceId}] %logger{36} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
+                <timestampFormatTimezoneId>Etc/UTC</timestampFormatTimezoneId>
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- 루트 로거 : 아래 일반로거는 지역적인 설정이고, 본 루트로거는 전역적인 설정을 의미 -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+<!--
+        <appender-ref ref="FILE_INFO"/>
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="FILE_LOGSTASH"/>
+-->
+    </root>
+
+
+    <!-- logger : 해당 로거가 사용될 패키시(name) 위치와 로그레벨을 지정
+                - level 속성을 통해서 출력할 로그의 레벨을 조절하여 appender에 전달
+                - com.kt.gigagenie.hotel 패키지 내 클래스에서 발생되는 로그 중에, INFO로그를 출력 -->
+    <logger name="com.kt.gigagenie.hotel"           level="INFO"/>
+    <!--
+    <logger name="org.springframework.web.client"   level="DEBUG"/>
+    -->
+    <logger name="jdbc" 	        	level="OFF"/>
+    <logger name="jdbc.sqlonly" 		level="DEBUG"/>
+    <logger name="jdbc.sqltiming" 		level="OFF" />
+    <logger name="jdbc.audit" 			level="OFF" 	additivity="false"/>
+    <logger name="jdbc.connection" 		level="OFF" 	additivity="false"/>
+    <logger name="jdbc.resultset" 		level="OFF" 	additivity="false"/>
+    <logger name="jdbc.resultsettable" 	level="OFF" />
+    <logger name="jdbc.connection" 		level="OFF"		additivity="false"/>
+
+    <!-- logger : 로그를 출력하는 요소 : level 속성을 통해서 출력할 로그의 레벨을 조절하여 appender에 전달 -->
+    <!-- DEBUG레벨 로그를 출력하는 형식은 console이라는 이름의 appender를 사용하겠다. -->
+<!--
+    <logger name="board" level="DEBUG" appender-ref="console"/>
+    <logger name="org.springframework" level="error"/>
+    <logger name="org.springframework.jdbc" level="error"/>
+-->
+
+</configuration>
+
+<!--
+        append level
+            trace : 모든 로그를 출력합니다.
+            debug : 개발할 때 디버그 용도로 사용됩니다.
+            info : 상태 변경 등과 같은 정보성 메세지를 나타냅니다.
+            warn : 프로그램의 실행에는 문제 없지만 추후 시스템에러의 원인이 될 수 있다는 경고성 메세지를 의미합니다.
+            error : 요청을 처리하던 도중 문제가 발생한 것을 의미합니다.
+-->
+
+<!--
+        1. %Logger{length}
+        - Logger name을 축약할 수 있다. {length}는 최대 자리 수
+        2. %thread
+        - 현재 Thread 이름
+        3. %-5level
+        - 로그 레벨, -5는 출력의 고정폭 값
+        4. %msg
+        - 로그 메시지 (=%message)
+        5. %n
+        - new line
+        6. ${PID:-}
+        - 프로세스 아이디
+        기타
+        %d : 로그 기록시간
+        %p : 로깅 레벨
+        %F : 로깅이 발생한 프로그램 파일명
+        %M : 로깅일 발생한 메소드의 이름
+        %l : 로깅이 발생한 호출지의 정보
+        %L : 로깅이 발생한 호출지의 라인 수
+        %t : 쓰레드 명
+        %c : 로깅이 발생한 카테고리
+        %C : 로깅이 발생한 클래스 명
+        %m : 로그 메시지
+        %r : 애플리케이션 시작 이후부터 로깅이 발생한 시점까지의 시간
+-->

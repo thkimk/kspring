@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd"
+         updateCheck="true" monitoring="autodetect" dynamicConfig="true">
+
+    <cache name="cache-1min"
+           maxElementsInMemory="50" 
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="60" 
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU" 
+           transactionalMode="off">
+    </cache>
+    
+    <cache name="cache-5min"
+           maxElementsInMemory="50" 
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="300" 
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU" 
+           transactionalMode="off">
+    </cache>
+    
+    <cache name="cache-30min"
+           maxElementsInMemory="50" 
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="1800" 
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU" 
+           transactionalMode="off">
+    </cache>
+    
+    <cache name="cache-1hour"
+           maxElementsInMemory="50" 
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="3600" 
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU" 
+           transactionalMode="off">
+    </cache>
+    
+    <cache name="cache-1day"
+           maxElementsInMemory="50" 
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="86400" 
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU" 
+           transactionalMode="off">
+    </cache>
+
+
+    <cache name="cache1"
+           maxElementsInMemory="50"
+           eternal="false"
+           overflowToDisk="false"
+           timeToLiveSeconds="86400"
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+    </cache>
+</ehcache>

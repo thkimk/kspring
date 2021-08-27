@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kkk.sbgtest.dao.Test2Dao">
+
+    <!-- TestDao mapping : namespace + id -->
+    <select id="test1" resultType="HashMap">
+        SELECT b2b_seq,b2b_nm FROM b2b_bas;
+    </select>
+
+    <select id="selectData"  parameterType="hashMap" resultType="hashMap">
+        <!-- 쿼리문 -->
+    </select>
+
+    <select id="selectB2bBas"  parameterType="hashMap" resultType="hashMap">
+        <!-- 쿼리문 -->
+        select * from b2b_bas where 1=1;
+    </select>
+
+    <!-- TestDao mapping : namespace + id -->
+    <select id="selectlist2" resultType="HashMap">
+        SELECT b2b_seq,b2b_nm FROM b2b_bas;
+    </select>
+
+    <delete id="deleteData">
+        DELETE FROM b2b_bas2 where b2b_seq=1
+    </delete>
+</mapper>

@@ -1,0 +1,141 @@
+# WAS서버 설정
+server:
+  address: localhost
+  port: 8091
+  connection-timeout: 10000
+
+spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+##    platform: org.hibernate.dialect.MySQL5Dialect
+#    url: jdbc:mysql://localhost:3306/weather?serverTimezone=UTC&characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr
+#    username: root
+#    password: welcome
+
+  default-ds:
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/weather?serverTimezone=UTC&characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr
+      username: root
+      password: welcome
+
+  second-ds:
+    datasource:
+#      platform: org.hibernate.dialect.MySQL5Dialect
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/weather?serverTimezone=UTC&characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr
+      username: root
+      password: welcome
+
+#  h2-ds:
+#    datasource:
+#      driver-class-name: org.h2.Driver
+#      url: jdbc:h2:mem:test;
+#      username: sa
+#      password:
+
+  jpa-ds:
+    datasource:
+      platform: mysql
+      jdbc-url: jdbc:mysql://localhost:3306/weather?serverTimezone=UTC&characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr
+      username: root
+      password: welcome
+
+  jpa:
+    database: mysql
+    generate-dll: false
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+#  jpa:
+#    database: mysql
+#    generate-ddl: true
+#    show-sql: true
+#  jpa:
+#    database: h2
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    show-sql: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#      settings:
+#        web-allow-others: true
+#  activemq:
+##    broker-url: failover:(ssl://{인스턴스1의 엔드포인트}, ssl://{인스턴스2의 엔드포인트})
+#    broker-url: tcp://127.0.0.1:61616
+#    user: amquser
+#    password: amqpw
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/test_db
+#    username: root
+#    password: welcome
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:postgresql://192.168.169.128:5432/testdb
+#    username: postgres
+#    password: welcome
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:postgresql://125.159.61.195:40015/aib2b
+#    username: genieb2b
+#    password: genie123
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://localhost:3306/tutorial
+#    username: root
+#    password: 1234
+#  jpa:
+#    open-in-view: false
+#    generate-ddl: true
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#  mysqlds:
+#    datasource:
+#      driver-class-name: com.mysql.jdbc.Driver
+#      jdbc-url: jdbc:mysql://192.168.169.130:3306/test_db
+#      username: user1
+#      password: test1234
+
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/tutorial
+#      host: localhost
+#      port: 27017
+#      database: tutorial
+
+#redis:
+#  hostname: 192.168.169.129
+#  port: 6379
+#  database: 1000
+#  password: thkim123
+#  timeout: 5000
+
+# Mybatis 설정
+#mybatis:
+#  config-location: classpath:config.mybatis.xml
+mybatis:
+  executor-type: REUSE
+  mapper-locations:
+  - "classpath:/sqlmaps/*.xml"
+
+# 아파치 카프카
+kafka:
+  bootstrap-servers: localhost:9092
+  consumer:
+    group-id:
+      retry:
+        back-off-period: 2000
+        max-attempts: 2
+
+# 사용자 변수
+test:
+  base: test-base-value
+
+#
+
+

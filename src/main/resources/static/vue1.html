@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message1: '안녕하세요 Vue!'
+            }
+        })
+
+        var model = {
+            message : '첫 번째 Vue.js 앱입니다.'
+        }
+
+        var simple = new Vue({
+            el : '#simple',
+            data : model
+        })
+
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ message1 }}
+    </div>
+
+    <div id="simple">
+        <h2>{{message2}}</h2>
+    </div>
+</body>
+</html>
+
+<!--
++ 설치
+ - Node.js 설치 -- npm 사용 가능해짐
+ - Vue 설치 : npm install vue
+   . npm install -g @vue/cli
+   . npm install -g @vue/cli-init
+ - Vue 확인 : vue
+
++ 프로젝트 생성 및 빌드
+ - vue init
+ - vue init webpack my-project
+ - cd my-project
+ - 자체실행 : npm run dev 또는 WEB서버에 등록(apache/nginx)
+ - 빌드 : npm run build -- WEB서버 배포시 빌드 필요 (배포후 생성된 dist 폴더를 WEB서버 root 디렉토리로 지정)
+-->
